@@ -1,0 +1,48 @@
+<h1>Edit Camion</h1>
+<form *ngIf="updateFormGroup" [formGroup]="updateFormGroup" (ngSubmit)="onSubmit()">
+  <div fxLayout="column" fxLayoutGap="20px">
+    <mat-form-field>
+      <mat-label>marque</mat-label>
+      <input matInput formControlName="marque" placeholder="marque">
+      <mat-error *ngIf="updateFormGroup.get('marque').invalid && updateFormGroup.get('marque').touched">
+        marque is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>modele</mat-label>
+      <input matInput formControlName="modele" placeholder="modele">
+      <mat-error *ngIf="updateFormGroup.get('modele').invalid && updateFormGroup.get('modele').touched">
+        modelet is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Consommation de carburant</mat-label>
+      <input matInput formControlName="consommationCarburant" placeholder="Consommation de carburant">
+      <mat-error *ngIf="updateFormGroup.get('consommationCarburant').invalid && updateFormGroup.get('consommationCarburant').touched">
+        Consommation de carburant is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>kilometrage</mat-label>
+      <input matInput formControlName="kilometrage" placeholder="kilometrage">
+      <mat-error *ngIf="updateFormGroup.get('kilometrage').invalid && updateFormGroup.get('kilometrage').touched">
+        kilometrage moyenne is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>dateMaintenance</mat-label>
+      <input matInput [matDatepicker]="datePicker2" formControlName="dateMaintenance" placeholder="dateMaintenance">
+      <mat-datepicker-toggle matSuffix [for]="datePicker2"></mat-datepicker-toggle>
+      <mat-datepicker #datePicker2></mat-datepicker>
+      <mat-error *ngIf="updateFormGroup.get('dateMaintenance').invalid && updateFormGroup.get('dateMaintenance').touched">
+        Date  is required
+      </mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" [disabled]="!updateFormGroup.valid">Save</button>
+  </div>
+</form>

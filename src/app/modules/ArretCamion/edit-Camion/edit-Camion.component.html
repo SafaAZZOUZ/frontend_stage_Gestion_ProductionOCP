@@ -1,0 +1,45 @@
+<h1>Editer  Arrêt</h1>
+<form *ngIf="updateFormGroup" [formGroup]="updateFormGroup" (ngSubmit)="onSubmit()">
+  <div fxLayout="column" fxLayoutGap="20px">
+
+    <mat-form-field>
+      <mat-label>Date et heure</mat-label>
+      <input matInput [matDatepicker]="datePicker1" formControlName="dateHeure" placeholder="Date">
+      <mat-datepicker-toggle matSuffix [for]="datePicker1"></mat-datepicker-toggle>
+      <mat-datepicker #datePicker1></mat-datepicker>
+      <mat-error *ngIf="updateFormGroup.get('dateHeure').invalid && updateFormGroup.get('dateHeure').touched">
+        La date et l'heure sont obligatoires
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Cause</mat-label>
+      <input matInput formControlName="cause" placeholder="Cause">
+      <mat-error *ngIf="updateFormGroup.get('cause').invalid && updateFormGroup.get('cause').touched">
+        La cause est obligatoire
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Durée</mat-label>
+      <input matInput formControlName="duree" placeholder="Durée">
+      <mat-error *ngIf="updateFormGroup.get('duree').invalid && updateFormGroup.get('duree').touched">
+        La durée est obligatoire
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Camion</mat-label>
+      <mat-select formControlName="camions" placeholder="Sélectionner un camion">
+        <mat-option *ngFor="let camion of camions" [value]="camion.id">{{ camion.marque }} {{ camion.modele }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="updateFormGroup.get('camions').invalid && updateFormGroup.get('camions').touched">
+        Le camion est obligatoire
+      </mat-error>
+    </mat-form-field>
+
+    <button type="submit" mat-raised-button color="primary">Enregistrer</button>
+    <button mat-button color="warn" [routerLink]="['/Arret']">Annuler</button>
+
+  </div>
+</form>

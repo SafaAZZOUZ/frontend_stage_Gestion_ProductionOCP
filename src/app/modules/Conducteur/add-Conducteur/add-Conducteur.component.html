@@ -1,0 +1,37 @@
+<mat-card class="card">
+  <h1 class="title">Ajouter un conducteur</h1>
+  <form (ngSubmit)="onSubmit()" #voyageForm="ngForm">
+    <mat-form-field class="form-field">
+      <mat-label>nom</mat-label>
+      <input matInput name="nom" [(ngModel)]="conducteur.nom" required>
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <mat-label>prenom</mat-label>
+      <input matInput  name="prenom" [(ngModel)]="conducteur.prenom" required>
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <mat-label>consommation Carburant</mat-label>
+      <input matInput  name="consommationCarburant" [(ngModel)]="conducteur.consommationCarburant" required>
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <mat-label>vitesseMoyenne</mat-label>
+      <input matInput  name="vitesseMoyenne" [(ngModel)]="conducteur.vitesseMoyenne" required>
+
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <mat-label>dateEm</mat-label>
+      <input matInput [matDatepicker]="arriveeDatePicker" name="dateEm" [(ngModel)]="conducteur.dateEm" required>
+      <mat-datepicker-toggle matSuffix [for]="arriveeDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #arriveeDatePicker></mat-datepicker>
+    </mat-form-field>
+
+    <div class="button-container">
+      <button mat-raised-button color="primary" type="submit" [disabled]="voyageForm.invalid">Ajouter</button>
+      <button mat-raised-button color="warn">Annuler</button>
+    </div>
+  </form>
+</mat-card>

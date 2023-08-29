@@ -1,0 +1,79 @@
+<h1>Conducteur Table</h1>
+
+<section>
+  <div class="example-button-row">
+    <button mat-raised-button color="primary" (click)="openAddForm()">Ajouter</button>
+  </div>
+</section>
+
+<mat-form-field>
+  <mat-label>Filter</mat-label>
+  <input matInput placeholder="Ex. first post" (keyup)="applyFilter($event)">
+</mat-form-field>
+
+<div class="table-container">
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <!-- ID Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+      <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+    </ng-container>
+
+    <!-- Nom Column -->
+    <ng-container matColumnDef="nom">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
+      <td mat-cell *matCellDef="let element">{{ element.nom }}</td>
+    </ng-container>
+
+    <!-- Prenom Column -->
+    <ng-container matColumnDef="prenom">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Prénom</th>
+      <td mat-cell *matCellDef="let element">{{ element.prenom }}</td>
+    </ng-container>
+
+    <!-- Date d'embauche Column -->
+    <ng-container matColumnDef="dateEm">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Date d'embauche</th>
+      <td mat-cell *matCellDef="let element">{{ element.dateEm }}</td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="details">
+      <th mat-header-cell *matHeaderCellDef> Détails </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button (click)="handleDetailsButton(element)">
+          <mat-icon aria-label="Détails">visibility</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="handleDeleteButton(element)">
+            <mat-icon color="warn">delete</mat-icon>
+            <span>Supprimer</span>
+          </button>
+          <button mat-menu-item (click)="openEditForm(element)">
+            <mat-icon color="primary">edit</mat-icon>
+            <span>Éditer</span>
+          </button>
+        </mat-menu>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+  </table>
+
+  <mat-paginator [length]="dataSource.data.length"
+                 [pageSize]="1"
+                 [pageSizeOptions]="[1, 5, 10, 25, 100]"
+                 aria-label="Select page">
+  </mat-paginator>
+</div>

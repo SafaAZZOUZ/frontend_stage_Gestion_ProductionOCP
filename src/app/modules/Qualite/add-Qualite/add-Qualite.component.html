@@ -1,0 +1,31 @@
+<mat-card class="card">
+  <h1 class="title">Ajouter  Qualite </h1>
+  <form (ngSubmit)="onSubmit()" #voyageForm="ngForm">
+    <mat-form-field class="form-field">
+      <mat-label>tauxSatisfaction</mat-label>
+      <input matInput name="tauxSatisfaction" [(ngModel)]="qualite.tauxSatisfaction" required>
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <mat-label>tauxDefauts</mat-label>
+      <input matInput name="tauxDefauts" [(ngModel)]="qualite.tauxDefauts" required>
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <mat-label>dateEvaluation</mat-label>
+      <input matInput [matDatepicker]="arriveeDatePicker" name="dateEvaluation" [(ngModel)]="qualite.dateEvaluation" required>
+      <mat-datepicker-toggle matSuffix [for]="arriveeDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #arriveeDatePicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <mat-label>commentaires</mat-label>
+      <input matInput name="commentaires" [(ngModel)]="qualite.commentaires" required>
+    </mat-form-field>
+
+    <div class="button-container">
+      <button mat-raised-button color="primary" type="submit" [disabled]="voyageForm.invalid">Ajouter</button>
+      <button mat-raised-button color="warn">Annuler</button>
+    </div>
+  </form>
+</mat-card>

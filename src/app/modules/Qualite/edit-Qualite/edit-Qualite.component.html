@@ -1,0 +1,40 @@
+<h1>Editer Qualité</h1>
+<form *ngIf="updateFormGroup" [formGroup]="updateFormGroup" (ngSubmit)="onSubmit()">
+  <div fxLayout="column" fxLayoutGap="20px">
+    <mat-form-field>
+      <mat-label>tauxSatisfaction</mat-label>
+      <input matInput formControlName="tauxSatisfaction" placeholder="tauxSatisfaction">
+      <mat-error *ngIf="updateFormGroup.get('tauxSatisfaction').invalid && updateFormGroup.get('tauxSatisfaction').touched">
+        Itineraire is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>tauxDefauts</mat-label>
+      <input matInput formControlName="tauxDefauts" placeholder="tauxDefauts">
+      <mat-error *ngIf="updateFormGroup.get('tauxDefauts').invalid && updateFormGroup.get('tauxDefauts').touched">
+        Date Depart is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>dateEvaluation</mat-label>
+      <input matInput [matDatepicker]="datePicker2" formControlName="dateEvaluation" placeholder="dateEvaluation">
+      <mat-datepicker-toggle matSuffix [for]="datePicker2"></mat-datepicker-toggle>
+      <mat-datepicker #datePicker2></mat-datepicker>
+      <mat-error *ngIf="updateFormGroup.get('dateEvaluation').invalid && updateFormGroup.get('dateEvaluation').touched">
+        Date Arrivee is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>commentaires</mat-label>
+      <input matInput formControlName="commentaires" placeholder="commentaires">
+      <mat-error *ngIf="updateFormGroup.get('commentaires').invalid && updateFormGroup.get('commentaires').touched">
+        Date Depart is required
+      </mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" [disabled]="!updateFormGroup.valid">Save</button>
+  </div>
+</form>

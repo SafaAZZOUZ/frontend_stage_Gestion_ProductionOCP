@@ -1,0 +1,42 @@
+<mat-card class="card">
+  <h1 class="title">Ajouter un Voyage</h1>
+  <form (ngSubmit)="onSubmit()" #voyageForm="ngForm">
+    <mat-form-field class="form-field">
+      <mat-label>Itinéraire</mat-label>
+      <input matInput name="itineraire" [(ngModel)]="voyage.itineraire" required>
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <mat-label>Date de Départ</mat-label>
+      <input matInput [matDatepicker]="departDatePicker" name="dateDepart" [(ngModel)]="voyage.dateDepart" required>
+      <mat-datepicker-toggle matSuffix [for]="departDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #departDatePicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <mat-label>Date d'Arrivée</mat-label>
+      <input matInput [matDatepicker]="arriveeDatePicker" name="dateArrivee" [(ngModel)]="voyage.dateArrivee" required>
+      <mat-datepicker-toggle matSuffix [for]="arriveeDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #arriveeDatePicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <mat-label>Camions</mat-label>
+      <mat-select name="camions" [(ngModel)]="voyage.camions" multiple>
+        <mat-option *ngFor="let camion of camions" [value]="camion">{{ camion.marque }} {{ camion.modele }} </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <mat-label>Conducteurs</mat-label>
+      <mat-select name="conducteurs" [(ngModel)]="voyage.conducteurs" multiple>
+        <mat-option *ngFor="let conducteur of conducteurs" [value]="conducteur">{{ conducteur.nom }} {{ conducteur.prenom }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="button-container">
+      <button mat-raised-button color="primary" type="submit" [disabled]="voyageForm.invalid">Ajouter</button>
+      <button mat-raised-button color="warn">Annuler</button>
+    </div>
+  </form>
+</mat-card>

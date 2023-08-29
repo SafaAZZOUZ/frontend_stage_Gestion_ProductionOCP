@@ -1,0 +1,26 @@
+<h1>Editer Utilisateur</h1>
+<form *ngIf="updateFormGroup" [formGroup]="updateFormGroup" (ngSubmit)="onSubmit()">
+  <div fxLayout="column" fxLayoutGap="20px">
+
+    <mat-form-field>
+      <mat-label>Nom d'utilisateur</mat-label>
+      <input matInput formControlName="username" placeholder="Nom d'utilisateur">
+      <mat-error *ngIf="updateFormGroup.get('username').invalid && updateFormGroup.get('username').touched">
+        Le nom d'utilisateur est obligatoire
+      </mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput type="email" formControlName="email" placeholder="Email">
+      <mat-error *ngIf="updateFormGroup.get('email').invalid && updateFormGroup.get('email').touched">
+        L'email est obligatoire et doit être une adresse email valide
+      </mat-error>
+    </mat-form-field>
+
+    <button type="submit" mat-raised-button color="primary">Enregistrer</button>
+    <button mat-button color="warn" [routerLink]="['/users']">Annuler</button>
+
+  </div>
+</form>

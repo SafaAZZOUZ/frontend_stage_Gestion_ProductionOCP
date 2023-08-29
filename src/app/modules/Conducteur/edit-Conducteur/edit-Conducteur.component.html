@@ -1,0 +1,50 @@
+<h1>Edit Voyage</h1>
+<form *ngIf="updateFormGroup" [formGroup]="updateFormGroup" (ngSubmit)="onSubmit()">
+  <div fxLayout="column" fxLayoutGap="20px">
+    <mat-form-field>
+      <mat-label>nom</mat-label>
+      <input matInput formControlName="nom" placeholder="nom">
+      <mat-error *ngIf="updateFormGroup.get('nom').invalid && updateFormGroup.get('nom').touched">
+        nom is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>prenom</mat-label>
+      <input matInput  formControlName="prenom" placeholder="prenom">
+      <mat-error *ngIf="updateFormGroup.get('prenom').invalid && updateFormGroup.get('prenom').touched">
+        prenom is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Date Em</mat-label>
+      <input matInput [matDatepicker]="datePicker2" formControlName="dateEm" placeholder="Date Em">
+      <mat-datepicker-toggle matSuffix [for]="datePicker2"></mat-datepicker-toggle>
+      <mat-datepicker #datePicker2></mat-datepicker>
+      <mat-error *ngIf="updateFormGroup.get('dateEm').invalid && updateFormGroup.get('dateEm').touched">
+        Date  is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>consommation Carburant</mat-label>
+      <input matInput [matDatepicker]="datePicker2" formControlName="consommationCarburant" placeholder="consommation Carburant">
+      <mat-datepicker-toggle matSuffix [for]="datePicker2"></mat-datepicker-toggle>
+      <mat-datepicker #datePicker2></mat-datepicker>
+      <mat-error *ngIf="updateFormGroup.get('consommationCarburant').invalid && updateFormGroup.get('consommationCarburant').touched">
+        consommation Carburant  is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>vitesseMoyenne</mat-label>
+      <input matInput [matDatepicker]="datePicker2" formControlName="vitesse Moyenne" placeholder="vitesse Moyenne">
+      <mat-datepicker-toggle matSuffix [for]="datePicker2"></mat-datepicker-toggle>
+      <mat-datepicker #datePicker2></mat-datepicker>
+      <mat-error *ngIf="updateFormGroup.get('vitesseMoyenne').invalid && updateFormGroup.get('vitesseMoyenne').touched">
+        vitesseMoyenne Parcourue is required
+      </mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" [disabled]="!updateFormGroup.valid">Save</button>
+  </div>
+</form>

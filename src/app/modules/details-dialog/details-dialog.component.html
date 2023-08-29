@@ -1,0 +1,22 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Détails du Voyage</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <h3>Camions :</h3>
+    <ul *ngIf="camions && camions.length; else noCamions">
+      <li *ngFor="let camion of camions">{{ camion.marque }} {{ camion.modele }} </li>
+    </ul>
+    <ng-template #noCamions>
+      <p>Aucun camion trouvé.</p>
+    </ng-template>
+
+    <h3>Conducteurs :</h3>
+    <ul *ngIf="conducteurs && conducteurs.length; else noConducteurs">
+      <li *ngFor="let conducteur of conducteurs">{{ conducteur.nom }} {{ conducteur.prenom }}</li>
+    </ul>
+    <ng-template #noConducteurs>
+      <p>Aucun conducteur trouvé.</p>
+    </ng-template>
+  </mat-card-content>
+</mat-card>

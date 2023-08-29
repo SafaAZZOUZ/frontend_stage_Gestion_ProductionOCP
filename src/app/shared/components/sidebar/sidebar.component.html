@@ -1,0 +1,36 @@
+<mat-nav-list>
+  <div class="profile-card">
+    <div class="header">
+      <h2>Gestion Production</h2>
+      <h3>Minière</h3>
+    </div>
+    <img src="assets/ocpl.png" alt="logo ocp">
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <h2 matSubheader>Pages</h2>
+  <ng-container *ngIf="roles != null && (roles.includes('ResponsableVoyages') || roles.includes('ADMIN'))">
+    <li class="nav-item">
+      <a mat-list-item routerLinkActive="list-item-active" routerLink="/dashboard">Dashboard</a>
+    </li>
+    <li class="nav-item">
+      <a mat-list-item routerLinkActive="list-item-active" routerLink="/Voyage">Voyage</a>
+    </li>
+    <li class="nav-item">
+      <a mat-list-item routerLinkActive="list-item-active" routerLink="/Camion">Camion</a>
+    </li>
+    <li class="nav-item">
+      <a mat-list-item routerLinkActive="list-item-active" routerLink="/Conducteur">Conducteur</a>
+    </li>
+
+    <li class="nav-item">
+      <a mat-list-item routerLinkActive="list-item-active" routerLink="/Arret">Arret Camion</a>
+    </li>
+  </ng-container>
+  <li class="nav-item" *ngIf="roles.includes('ResponsablesQualite')">
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/Qualite">Qualité</a>
+  </li>
+
+  <mat-divider></mat-divider>
+</mat-nav-list>

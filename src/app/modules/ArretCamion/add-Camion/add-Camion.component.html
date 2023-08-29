@@ -1,0 +1,33 @@
+<mat-card class="card">
+  <h1 class="title">Ajouter un Arret</h1>
+  <form (ngSubmit)="onSubmit()" #voyageForm="ngForm">
+    <mat-form-field class="form-field">
+      <mat-label>cause</mat-label>
+      <input matInput name="cause" [(ngModel)]="arret.cause" required>
+    </mat-form-field>
+    <mat-form-field class="form-field">
+      <mat-label>date </mat-label>
+      <input matInput [matDatepicker]="departDatePicker" name="dateHeure" [(ngModel)]="arret.date" required>
+      <mat-datepicker-toggle matSuffix [for]="departDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #departDatePicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <mat-label>duree</mat-label>
+      <input matInput  name="duree" [(ngModel)]="arret.duree" required>
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <mat-label>Camion</mat-label>
+      <mat-select name="camion" [(ngModel)]="arret.camion" required>
+        <mat-option *ngFor="let camion of arret.camionsDisponibles" [value]="camion">
+          {{ camion.marque }} {{ camion.modele }} <!-- Remplacez "nom" par la propriété correspondante dans l'objet Camion -->
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="button-container">
+      <button mat-raised-button color="primary" type="submit" [disabled]="voyageForm.invalid">Ajouter</button>
+      <button mat-raised-button color="warn">Annuler</button>
+    </div>
+  </form>
+</mat-card>
