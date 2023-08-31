@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AppUser } from '../model/user.model'; // Assurez-vous d'importer le modèle approprié
+import { AppUser } from '../model/user.model';
+import {environment} from '../../environments/environment'; // Assurez-vous d'importer le modèle approprié
 
 @Injectable({
   providedIn: 'root'
@@ -34,5 +35,8 @@ export class AccountService {
   // Ajouter un nouvel utilisateur
   addUser(newUser: AppUser): Observable<AppUser> {
     return this.http.post<AppUser>(`${this.baseUrl}/users`, newUser);
+  }
+  addRoleToUser(roleUserForm: any) {
+    return this.http.post(`${environment.apiUrl}/addRoleToUser`, roleUserForm);
   }
 }

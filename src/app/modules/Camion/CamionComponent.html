@@ -10,7 +10,7 @@
   <input matInput placeholder="rechercher" (keyup)="applyFilter($event)">
 </mat-form-field>
 <div>
-  <table mat-table [dataSource]="dataSource" matSort>
+  <table id="camionTable" mat-table [dataSource]="dataSource" matSort>
 
     <!-- Position Column -->
     <ng-container matColumnDef="id">
@@ -41,6 +41,7 @@
         <button mat-icon-button (click)="showDetails(element)">
           <mat-icon aria-label="Détails">visibility</mat-icon>
         </button>
+        <span>{{ element.id }}</span>
       </td>
     </ng-container>
 
@@ -69,8 +70,15 @@
 
   <mat-paginator [length]="dataSource.data.length"
                  [pageSize]="1"
-                 [pageSizeOptions]="[1, 5, 10, 25, 100]"
+                 [pageSizeOptions]="[5, 10, 25, 100]"
                  aria-label="Select page">
   </mat-paginator>
 
+
+  <section>
+    <div class="example-button-row">
+
+      <button mat-raised-button color="primary" (click)="printTable()">Imprimer</button>
+    </div>
+  </section>
 </div>

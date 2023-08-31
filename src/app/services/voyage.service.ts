@@ -10,7 +10,7 @@ import {Conducteur} from '../model/Conducteur';
   providedIn: 'root'
 })
 export class VoyageService {
-
+  private baseUrl = 'http://localhost:8085';
   constructor(private http: HttpClient) { }
 
   getAllVoyages(): Observable<Voyage[]> {
@@ -43,5 +43,9 @@ export class VoyageService {
   }
   getAllConducteurs(): Observable<Conducteur[]> {
     return this.http.get<Conducteur[]>(`${environment.apiUrl}/conducteurs`);
+  }
+  getAverageDurationData(): Observable<any[]> {
+    const url = `${this.baseUrl}/voyages/average-duration-in-days`;
+    return this.http.get<any[]>(url);
   }
 }

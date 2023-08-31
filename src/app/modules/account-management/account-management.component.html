@@ -1,72 +1,59 @@
-<h1>User Management</h1>
-
-<section>
-  <div class="example-button-row">
-    <button mat-raised-button color="primary" (click)=" openAddForm()" > Add User </button>
-  </div>
-</section>
-
-<mat-form-field>
-  <mat-label>Filter</mat-label>
-  <input matInput placeholder="Search" (keyup)="applyFilter($event)">
-</mat-form-field>
-
 <div class="table-container">
+  <!-- Filter input -->
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Filter">
+  </mat-form-field>
+
+  <!-- User table -->
   <table mat-table [dataSource]="dataSource" matSort>
 
-    <!-- User ID Column -->
+    <!-- ID Column -->
     <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>User ID</th>
-      <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+      <td mat-cell *matCellDef="let user"> {{ user.id }} </td>
     </ng-container>
 
     <!-- Username Column -->
     <ng-container matColumnDef="username">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Username</th>
-      <td mat-cell *matCellDef="let element">{{ element.username }}</td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Username </th>
+      <td mat-cell *matCellDef="let user"> {{ user.username }} </td>
     </ng-container>
 
+    <!-- Email Column -->
     <ng-container matColumnDef="email">
-      <th mat-header-cell *matHeaderCellDef>Eamil</th>
-      <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+      <td mat-cell *matCellDef="let user"> {{ user.email }} </td>
     </ng-container>
+
     <!-- Actions Column -->
     <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef>Actions</th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Actions Menu">
-          <mat-icon>more_vert</mat-icon>
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let user">
+        <button mat-icon-button color="primary" (click)="openEditForm(user)">
+
+          <mat-icon>edit</mat-icon>
         </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="handleDeleteButton(element)">
-            <mat-icon color="warn">delete</mat-icon>
-            <span>Delete</span>
-          </button>
-          <button mat-menu-item (click)="openEditForm(element)">
-            <mat-icon color="primary">edit</mat-icon>
-            <span>Edit</span>
-          </button>
-        </mat-menu>
+        <button mat-icon-button color="warn" (click)="deleteUser(user)">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-icon-button color="success" (click)="assignRoleToUser(user, 'ResponsableVoyages')">
+          <mat-icon>person_add</mat-icon>
+        </button>
+        <button mat-icon-button color="accent" (click)="assignRoleToUser(user, 'ResponsablesQualite')">
+          <mat-icon>person_add</mat-icon>
+        </button>
+
       </td>
     </ng-container>
 
+    <!-- Table rows -->
     <tr mat-header-row *matHeaderRowDef="columns"></tr>
-    <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns"></tr>
   </table>
 
-  <section>
-    <h2>User Roles</h2>
-    <ul>
-      <li *ngFor="let user of dataSource.data">
-        {{ user.username }} - Roles: {{ user.roles.join(', ') }}
-      </li>
-    </ul>
-  </section>
-
-
-  <mat-paginator
-    [length]="dataSource.data.length"
-    [pageSize]="10"
-    [pageSizeOptions]="[1, 5, 10, 25, 100]"
-  ></mat-paginator>
+  <!-- Paginator -->
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 </div>
+
+<!-- Add User button -->
+<button mat-raised-button color="primary" (click)="openAddForm()">Add User</button>

@@ -17,6 +17,7 @@ export class ConducteurComponent implements OnInit {
   columns: string[] = ['id', 'nom', 'prenom', 'dateEm', 'details', 'actions'];
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  selectedC: Conducteur;
 
   constructor(
     private router: Router,
@@ -87,9 +88,96 @@ export class ConducteurComponent implements OnInit {
   }
 
   handleDetailsButton(conducteur: Conducteur) {
+    this.selectedC = conducteur;
     Swal.fire({
       title: 'Détails du conducteur',
-      html: `Consommation de carburant: ${conducteur.consommationCarburant}<br> vitesseMoyenne: ${conducteur.vitesseMoyenne}`,
-    });
+      html: `
+      <table>
+        <tr>
+        <td>Consommation de carburant:</td>
+          <td>${conducteur.consommationCarburant}</td>
+        </tr>
+        <tr>
+          <td>Vitesse moyenne:</td>
+          <td>${conducteur.vitesseMoyenne}</td>
+        </tr>
+      </table>
+    `,
+});
+  }
+  printTable() {
+    const printContents = `
+    <html>
+      <head>
+        <style>
+body {
+font-family: Arial, sans-serif;
+font-size: 14px;
+margin: 0;
+color: #333;
+}
+
+table {
+width: 100%;
+border-collapse: collapse;
+}
+
+th, td {
+padding: 12px;
+border: 1px solid #e0e0e0;
+text-align: left;
+}
+
+th {
+background-color: #f5f5f5;
+font-weight: bold;
+}
+
+td {
+background-color: #fff;
+}
+
+.example-button-row {
+margin-bottom: 20px;
+}
+
+button {
+margin-right: 10px;
+}
+
+dust
+Copy
+    </style>
+      </head>
+      <body>
+        <table>
+          <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Prenom</th>
+            <th>Date d'Embuche</th>
+            <th>Consommation de carburant</th>
+            <th>Vitesse moyenne</th>
+          </tr>
+          ${this.conducteur.map(conducteur => `
+            <tr>
+              <td>${conducteur.id}</td>
+              <td>${conducteur.nom}</td>
+              <td>${conducteur.prenom}</td>
+              <td>${conducteur.dateEm}</td>
+              <td>${conducteur.consommationCarburant}</td>
+              <td>${conducteur.vitesseMoyenne}</td>
+            </tr>
+          `).join('')}
+        </table>
+      </body>
+    </html>
+  `;
+
+    const printWindow = window.open('', '_blank');
+    printWindow.document.open();
+    printWindow.document.write(printContents);
+    printWindow.document.close();
+    printWindow.print();
   }
 }

@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import {ArretCamion} from '../../model/ArretCamion';
 import {ArretService} from '../../services/arret.service';
 import {AddCamionComponent} from './add-Camion/add-Camion.component';
+import {Camion} from '../../model/Camion';
 
 @Component({
   selector: 'app-posts',
@@ -17,6 +18,7 @@ export class ArretCamionComponent implements OnInit {
   columns: string[] = ['id', 'dateHeure', 'cause', 'duree', 'camion', 'actions'];
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  selectedarret: ArretCamion;
 
   constructor(
     private router: Router,
@@ -84,5 +86,78 @@ export class ArretCamionComponent implements OnInit {
         console.log('Add:', result);
       }
     });
+  }
+  printTable() {
+    const printContents = `
+    <html>
+      <head>
+        <style>
+body {
+font-family: Arial, sans-serif;
+font-size: 14px;
+margin: 0;
+color: #333;
+}
+
+table {
+width: 100%;
+border-collapse: collapse;
+}
+
+th, td {
+padding: 12px;
+border: 1px solid #e0e0e0;
+text-align: left;
+}
+
+th {
+background-color: #f5f5f5;
+font-weight: bold;
+}
+
+td {
+background-color: #fff;
+}
+
+.example-button-row {
+margin-bottom: 20px;
+}
+
+button {
+margin-right: 10px;
+}
+
+dust
+Copy
+    </style>
+      </head>
+      <body>
+        <table>
+          <tr>
+            <th>ID</th>
+            <th>date</th>
+            <th>cause</th>
+            <th>duree</th>
+            <th>camion</th>
+          </tr>
+          ${this.arret.map(arret => `
+            <tr>
+              <td>${arret.id}</td>
+              <td>${arret.dateHeure}</td>
+              <td>${arret.cause}</td>
+              <td>${arret.duree}</td>
+              <td>${arret.camion.marque}</td>
+            </tr>
+          `).join('')}
+        </table>
+      </body>
+    </html>
+  `;
+
+    const printWindow = window.open('', '_blank');
+    printWindow.document.open();
+    printWindow.document.write(printContents);
+    printWindow.document.close();
+    printWindow.print();
   }
 }

@@ -23,6 +23,11 @@
       <input matInput name="commentaires" [(ngModel)]="qualite.commentaires" required>
     </mat-form-field>
 
+    <mat-form-field class="form-field">
+      <mat-label>Quantité extrait</mat-label>
+      <input matInput name="quantiteEx" [(ngModel)]="qualite.quantiteEx" required>
+    </mat-form-field>
+
     <div class="button-container">
       <button mat-raised-button color="primary" type="submit" [disabled]="voyageForm.invalid">Ajouter</button>
       <button mat-raised-button color="warn">Annuler</button>

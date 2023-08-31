@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Renderer2  } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource, MatDialog  } from '@angular/material';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -15,13 +15,16 @@ export class CamionComponent implements OnInit {
   camion: Camion[] = [];
   dataSource: MatTableDataSource<Camion>;
   columns: string[] = ['id', 'marque', 'modele', 'dateMaintenance', 'details', 'actions'];
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  selectedCamion: Camion;
 
   constructor(
     private router: Router,
     private dialog: MatDialog,
-    private camionService: CamionService) {}
+    private camionService: CamionService,
+    private renderer: Renderer2) {
+  }
 
   ngOnInit() {
     this.dataSource = new MatTableDataSource<Camion>(this.camion);
@@ -67,10 +70,23 @@ export class CamionComponent implements OnInit {
       }
     });
   }
+
   showDetails(camion: Camion) {
+    this.selectedCamion = camion;
     Swal.fire({
       title: 'Détails du camion',
-      html: `Consommation de carburant: <br> ${camion.consommationCarburant} <br> Vitesse moyenne: <br> ${camion.kilometrage}`,
+      html: `
+      <table>
+        <tr>
+          <td>Consommation de carburant:</td>
+          <td>${camion.consommationCarburant}</td>
+        </tr>
+        <tr>
+          <td>Vitesse moyenne:</td>
+          <td>${camion.kilometrage}</td>
+        </tr>
+      </table>
+    `,
     });
   }
 
@@ -81,7 +97,7 @@ export class CamionComponent implements OnInit {
   openAddForm() {
     const dialogRef = this.dialog.open(AddCComponent, {
       width: '400px',
-      data: { mode: 'add' }
+      data: {mode: 'add'}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -90,5 +106,80 @@ export class CamionComponent implements OnInit {
       }
     });
   }
+
+  printTable() {
+    const printContents = `
+    <html>
+      <head>
+        <style>
+body {
+font-family: Arial, sans-serif;
+font-size: 14px;
+margin: 0;
+color: #333;
 }
 
+table {
+width: 100%;
+border-collapse: collapse;
+}
+
+th, td {
+padding: 12px;
+border: 1px solid #e0e0e0;
+text-align: left;
+}
+
+th {
+background-color: #f5f5f5;
+font-weight: bold;
+}
+
+td {
+background-color: #fff;
+}
+
+.example-button-row {
+margin-bottom: 20px;
+}
+
+button {
+margin-right: 10px;
+}
+
+dust
+Copy
+    </style>
+      </head>
+      <body>
+        <table>
+          <tr>
+            <th>ID</th>
+            <th>Marque</th>
+            <th>Modèle</th>
+            <th>Date de Maintenance</th>
+            <th>Consommation de carburant</th>
+            <th>Vitesse moyenne</th>
+          </tr>
+          ${this.camion.map(camion => `
+            <tr>
+              <td>${camion.id}</td>
+              <td>${camion.marque}</td>
+              <td>${camion.modele}</td>
+              <td>${camion.dateMaintenance}</td>
+              <td>${camion.consommationCarburant}</td>
+              <td>${camion.kilometrage}</td>
+            </tr>
+          `).join('')}
+        </table>
+      </body>
+    </html>
+  `;
+
+    const printWindow = window.open('', '_blank');
+    printWindow.document.open();
+    printWindow.document.write(printContents);
+    printWindow.document.close();
+    printWindow.print();
+  }
+}

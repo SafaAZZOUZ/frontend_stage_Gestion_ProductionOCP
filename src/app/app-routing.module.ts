@@ -24,6 +24,9 @@ import {RegisterComponent} from './modules/register/register.component';
 import {AccountManagementComponent} from './modules/account-management/account-management.component';
 import {AddUserComponent} from './modules/account-management/add-User/add-User.component';
 import {EditUserComponent} from './modules/account-management/edit-User/edit-User.component';
+import {ChartComponent} from './modules/chart/chart.component';
+import {ChartInterfaceComponent} from './modules/chart-interface/chart-interface.component';
+import {ChartdureComponent} from './modules/chartdure/chartdure.component';
 
 const routes: Routes = [
   { path: '', component : LoginComponent },
@@ -53,6 +56,9 @@ const routes: Routes = [
       {path: 'AccountManagement', component: AccountManagementComponent},
       { path: 'AccountManagement/add-User', component: AddUserComponent },
       { path: 'AccountManagement/edit-User/:id', component: EditUserComponent },
+      {path: 'chart', component: ChartComponent},
+      {path: 'chartInter', component: ChartInterfaceComponent},
+      {path: 'chartdure', component: ChartdureComponent}
     ]
   }
 ];

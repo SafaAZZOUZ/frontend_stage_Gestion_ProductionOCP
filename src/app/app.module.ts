@@ -7,11 +7,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DefaultModule } from './layouts/default/default.module';
 import {MatDialogModule} from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ChartComponent } from './modules/chart/chart.component';
+import {ChartInterfaceComponent} from './modules/chart-interface/chart-interface.component';
+import {MatButtonModule} from '@angular/material';
+import { ChartdureComponent } from './modules/chartdure/chartdure.component';
+
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ChartComponent,
+    ChartInterfaceComponent,
+    ChartdureComponent
   ],
   imports: [
     BrowserModule,
@@ -20,7 +28,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     DefaultModule,
     MatDialogModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

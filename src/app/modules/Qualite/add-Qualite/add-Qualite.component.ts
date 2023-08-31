@@ -15,7 +15,8 @@ export class AddQualiteComponent {
     tauxSatisfaction : 0,
     tauxDefauts : 0,
     dateEvaluation: new Date(),
-    commentaires: ''
+    commentaires: '',
+    quantiteEx: 0
   };
 
   constructor(

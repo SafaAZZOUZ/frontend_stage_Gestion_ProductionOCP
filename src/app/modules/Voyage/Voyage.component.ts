@@ -6,7 +6,7 @@ import { AddComponent } from '../Voyage/add/add.component';
 import Swal from 'sweetalert2';
 import { VoyageService } from 'src/app/services/voyage.service';
 import { Voyage } from '../../model/Voyage';
-import {DetailsDialogComponent} from '../details-dialog/details-dialog.component';
+import { DetailsDialogComponent } from '../details-dialog/details-dialog.component';
 
 @Component({
   selector: 'app-voyage',
@@ -24,7 +24,8 @@ export class VoyageComponent implements OnInit {
   constructor(
     private router: Router,
     private dialog: MatDialog,
-    private voyageService: VoyageService) {}
+    private voyageService: VoyageService
+  ) { }
 
   ngOnInit() {
     this.dataSource = new MatTableDataSource<Voyage>(this.voyages);
@@ -40,12 +41,12 @@ export class VoyageComponent implements OnInit {
         this.dataSource.data = this.voyages;
       },
       error => {
-        console.error('Erreur lors de la récupération des voyages :', error);
+        console.error('Erreur lors de la récupération des voyages:', error);
       }
     );
   }
 
-  applyFilter(event) {
+  applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
@@ -61,7 +62,7 @@ export class VoyageComponent implements OnInit {
         this.voyageService.deleteVoyage(voyage.id).subscribe({
           next: (resp) => {
             Swal.fire('Deleted successfully!', '');
-            window.location.reload(); // Actualiser la page
+            window.location.reload(); // Refresh the page
           },
           error: (err) => {
             console.log(err);
@@ -70,7 +71,6 @@ export class VoyageComponent implements OnInit {
       }
     });
   }
-
 
   openEditForm(voyage: Voyage) {
     this.router.navigateByUrl(`/Voyage/edit/${voyage.id}`);
@@ -88,10 +88,11 @@ export class VoyageComponent implements OnInit {
       }
     });
   }
+
   showDetails(voyage: Voyage) {
     const dialogRef = this.dialog.open(DetailsDialogComponent, {
       width: '400px',
-      data: { voyage } // Passez le voyage à votre composant de dialogue
+      data: { voyage: voyage, conducteurs: voyage.conducteurs, camions: voyage.camions }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -99,5 +100,85 @@ export class VoyageComponent implements OnInit {
         console.log('Details dialog closed with result:', result);
       }
     });
+  }
+
+  printTableWithDetails() {
+    const printContents = `
+      <html>
+      <head>
+      <style>
+      body {
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      margin: 0;
+      color: #333;
+      }
+
+      table {
+      width: 100%;
+      border-collapse: collapse;
+      }
+
+      th, td {
+      padding: 12px;
+      border: 1px solid #e0e0e0;
+      text-align: left;
+      }
+
+      th {
+      background-color: #f5f5f5;
+      font-weight: bold;
+      }
+
+      td {
+      background-color: #fff;
+      }
+
+      .example-button-row {
+      margin-bottom: 20px;
+      }
+
+      button {
+      margin-right: 10px;
+      }
+      </style>
+      </head>
+      <body>
+      <h1>Liste des Voyages</h1>
+      <br>
+      <br>
+      <br>
+      <table>
+      <thead>
+      <tr>
+      <th>ID</th>
+      <th>Date de Départ</th>
+      <th>Date d'Arrivée</th>
+             <th>Conducteur</th>
+              <th>Camion</th>
+              <th>itineraire</th>
+            </tr>
+          </thead<tbody>
+            ${this.dataSource.data.map(
+      voyage => `<tr>
+                <td>${voyage.id}</td>
+                <td>${voyage.dateDepart}</td>
+                <td>${voyage.dateArrivee}</td>
+                <td>${voyage.conducteurs.nom} ${voyage.conducteurs.prenom}</td>
+                <td>${voyage.camions.marque} ${voyage.camions.modele}</td>
+                <td>${voyage.itineraire}</td>
+              </tr>`
+    ).join('')}
+          </tbody>
+        </table>
+      </body>
+    </html>
+    `;
+
+    const printWindow = window.open('', '_blank');
+    printWindow.document.open();
+    printWindow.document.write(printContents);
+    printWindow.document.close();
+    printWindow.print();
   }
 }

@@ -4,4 +4,5 @@ export class Qualite {
   tauxDefauts: number;
   dateEvaluation: Date;
   commentaires: string;
+  quantiteEx: number;
 }
