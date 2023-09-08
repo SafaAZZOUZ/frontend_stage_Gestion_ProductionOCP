@@ -1,4 +1,4 @@
-<h1>Camion Table</h1>
+<h1>Tableau des camions</h1>
 
 <section>
   <div class="example-button-row">
@@ -81,4 +81,20 @@
       <button mat-raised-button color="primary" (click)="printTable()">Imprimer</button>
     </div>
   </section>
+
+  <div>
+    <p>Réponse de l'API :</p>
+    <pre>{{ apiResponse | json }}</pre>
+  </div>
+
+  <div>
+    <canvas id="canvas"></canvas>
+  </div>
+  <br>
+  <br>
+  <br>
+  <div>  <button mat-button color="primary" (click)="printChart()">Print Chart</button>
+  </div>
 </div>
+
+

@@ -104,76 +104,76 @@ export class VoyageComponent implements OnInit {
 
   printTableWithDetails() {
     const printContents = `
-      <html>
-      <head>
-      <style>
-      body {
+    <html>
+    <head>
+    <style>
+    body {
       font-family: Arial, sans-serif;
       font-size: 14px;
       margin: 0;
       color: #333;
-      }
+    }
 
-      table {
+    table {
       width: 100%;
       border-collapse: collapse;
-      }
+    }
 
-      th, td {
+    th, td {
       padding: 12px;
       border: 1px solid #e0e0e0;
       text-align: left;
-      }
+    }
 
-      th {
+    th {
       background-color: #f5f5f5;
       font-weight: bold;
-      }
+    }
 
-      td {
+    td {
       background-color: #fff;
-      }
+    }
 
-      .example-button-row {
+    .example-button-row {
       margin-bottom: 20px;
-      }
+    }
 
-      button {
+    button {
       margin-right: 10px;
-      }
-      </style>
-      </head>
-      <body>
-      <h1>Liste des Voyages</h1>
-      <br>
-      <br>
-      <br>
-      <table>
-      <thead>
-      <tr>
+    }
+    </style>
+    </head>
+    <body>
+    <br>
+    <h1>Liste des Voyages</h1>
+    <br>
+    <br>
+    <br>
+    <table>
+    <thead>
+    <tr>
       <th>ID</th>
       <th>Date de Départ</th>
       <th>Date d'Arrivée</th>
-             <th>Conducteur</th>
-              <th>Camion</th>
-              <th>itineraire</th>
-            </tr>
-          </thead<tbody>
-            ${this.dataSource.data.map(
-      voyage => `<tr>
-                <td>${voyage.id}</td>
-                <td>${voyage.dateDepart}</td>
-                <td>${voyage.dateArrivee}</td>
-                <td>${voyage.conducteurs.nom} ${voyage.conducteurs.prenom}</td>
-                <td>${voyage.camions.marque} ${voyage.camions.modele}</td>
-                <td>${voyage.itineraire}</td>
-              </tr>`
-    ).join('')}
-          </tbody>
-        </table>
-      </body>
+      <th>Conducteur</th>
+      <th>Camion</th>
+      <th>itineraire</th>
+    </tr>
+    </thead>
+    <tbody>
+    ${this.dataSource.data.map(voyage => `<tr>
+          <td>${voyage.id}</td>
+          <td>${voyage.dateDepart}</td>
+          <td>${voyage.dateArrivee}</td>
+          <td>${voyage.conducteurs[0].nom} ${voyage.conducteurs[0].prenom}</td>
+          <td>${voyage.camions[0].marque} ${voyage.camions[0].modele}</td>
+          <td>${voyage.itineraire}</td>
+        </tr>`).join('')}
+    </tbody>
+    </table>
+    </body>
     </html>
-    `;
+  `;
 
     const printWindow = window.open('', '_blank');
     printWindow.document.open();

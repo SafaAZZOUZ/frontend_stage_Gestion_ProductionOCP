@@ -15,27 +15,36 @@
       <a mat-list-item routerLinkActive="list-item-active" routerLink="/dashboard">Dashboard</a>
     </li>
     <li class="nav-item">
-      <a mat-list-item routerLinkActive="list-item-active" routerLink="/Voyage">Voyage</a>
+      <a mat-list-item routerLinkActive="list-item-active" routerLink="/Voyage">Les Voyages</a>
     </li>
     <li class="nav-item">
-      <a mat-list-item routerLinkActive="list-item-active" routerLink="/Camion">Camion</a>
+      <a mat-list-item routerLinkActive="list-item-active" routerLink="/Camion">les Camions</a>
     </li>
     <li class="nav-item">
-      <a mat-list-item routerLinkActive="list-item-active" routerLink="/Conducteur">Conducteur</a>
+      <a mat-list-item routerLinkActive="list-item-active" routerLink="/Conducteur">les Conducteurs</a>
+    </li>
+    <li class="nav-item">
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/chartC">la performance des Conducteurs</a>
     </li>
 
     <li class="nav-item">
-      <a mat-list-item routerLinkActive="list-item-active" routerLink="/Arret">Arret Camion</a>
+      <a mat-list-item routerLinkActive="list-item-active" routerLink="/Arret">les Arrêt Camion</a>
     </li>
     <li class="nav-item">
-      <a mat-list-item routerLinkActive="list-item-active" routerLink="/chartdure">graphe durée</a>
+      <a mat-list-item routerLinkActive="list-item-active" routerLink="/chartdure">la durée des voyages</a>
     </li>
   </ng-container>
-  <li class="nav-item" *ngIf="roles.includes('ResponsablesQualite')">
+  <ng-container class="nav-item" *ngIf="roles != null && (roles.includes('ResponsablesQualite') || roles.includes('ADMIN'))">
+    <li class="nav-item">
     <a mat-list-item routerLinkActive="list-item-active" routerLink="/Qualite">Qualité</a>
-    <a mat-list-item routerLinkActive="list-item-active" routerLink="/chart">graph</a>
-    <a mat-list-item routerLinkActive="list-item-active" routerLink="/chartInter">graph Quantité</a>
-  </li>
+    </li>
+    <li class="nav-item">
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/chart">graph de qualité</a>
+    </li>
+    <li class="nav-item">
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/chartInter">graphe de Quantité</a>
+    </li>
+  </ng-container>
 
   <mat-divider></mat-divider>
 </mat-nav-list>

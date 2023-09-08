@@ -11,6 +11,7 @@ import { ChartComponent } from './modules/chart/chart.component';
 import {ChartInterfaceComponent} from './modules/chart-interface/chart-interface.component';
 import {MatButtonModule} from '@angular/material';
 import { ChartdureComponent } from './modules/chartdure/chartdure.component';
+import { ChartCComponent } from './modules/chart-c/chart-c.component';
 
 
 
@@ -19,7 +20,8 @@ import { ChartdureComponent } from './modules/chartdure/chartdure.component';
     AppComponent,
     ChartComponent,
     ChartInterfaceComponent,
-    ChartdureComponent
+    ChartdureComponent,
+    ChartCComponent
   ],
   imports: [
     BrowserModule,

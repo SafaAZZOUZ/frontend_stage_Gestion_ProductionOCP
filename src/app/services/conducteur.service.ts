@@ -29,5 +29,12 @@ export class ConducteurService {
   deleteConducteur(id: number): Observable<void> {
     return this.http.delete<void>(`${environment.apiUrl}/conducteurs/${id}`);
   }
+  getConducteurConsommation(id: number): Observable<number> {
+    return this.http.get<number>(`${environment.apiUrl}/conducteurs/${id}/consommation`);
+  }
+
+  getConducteurVitesse(id: number): Observable<number> {
+    return this.http.get<number>(`${environment.apiUrl}/conducteurs/${id}/vitesse`);
+  }
 }
 

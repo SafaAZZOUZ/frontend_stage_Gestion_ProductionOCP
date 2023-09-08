@@ -29,4 +29,11 @@ export class CamionService {
   deleteCamion(id: number): Observable<void> {
     return this.http.delete<void>(`${environment.apiUrl}/camions/${id}`);
   }
+  getConducteurConsommation(id: number): Observable<number> {
+    return this.http.get<number>(`${environment.apiUrl}/camions/${id}/consommation`);
+  }
+
+  getConducteurVitesse(id: number): Observable<number> {
+    return this.http.get<number>(`${environment.apiUrl}/camions/${id}/kilometrage`);
+  }
 }

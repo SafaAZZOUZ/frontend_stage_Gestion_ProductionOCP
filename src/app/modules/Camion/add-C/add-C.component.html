@@ -13,17 +13,17 @@
 
     <mat-form-field class="form-field">
       <mat-label>Consommation de carburant</mat-label>
-      <input matInput name="consommationCarburant" [(ngModel)]="camion.consommationCarburant" required>
+      <input matInput name="consommationCarburant" [(ngModel)]="camion.consommationCarburant" >
     </mat-form-field>
 
     <mat-form-field class="form-field">
       <mat-label>kilometrage</mat-label>
-      <input matInput name="kilometrage" [(ngModel)]="camion.kilometrage" required>
+      <input matInput name="kilometrage" [(ngModel)]="camion.kilometrage" >
     </mat-form-field>
 
     <mat-form-field class="form-field">
       <mat-label>date de Maintenance</mat-label>
-      <input matInput [matDatepicker]="arriveeDatePicker" name="dateMaintenance" [(ngModel)]="camion.dateMaintenance" required>
+      <input matInput [matDatepicker]="arriveeDatePicker" name="dateMaintenance" [(ngModel)]="camion.dateMaintenance" >
       <mat-datepicker-toggle matSuffix [for]="arriveeDatePicker"></mat-datepicker-toggle>
       <mat-datepicker #arriveeDatePicker></mat-datepicker>
     </mat-form-field>

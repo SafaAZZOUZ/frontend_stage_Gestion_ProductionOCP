@@ -133,6 +133,8 @@ Copy
       </head>
       <body>
         <table>
+        <br>
+        <h2>Liste des Arréts des Camions </h2>
           <tr>
             <th>ID</th>
             <th>date</th>
@@ -146,7 +148,7 @@ Copy
               <td>${arret.dateHeure}</td>
               <td>${arret.cause}</td>
               <td>${arret.duree}</td>
-              <td>${arret.camion.marque}</td>
+              <td>${arret.camion}</td>
             </tr>
           `).join('')}
         </table>

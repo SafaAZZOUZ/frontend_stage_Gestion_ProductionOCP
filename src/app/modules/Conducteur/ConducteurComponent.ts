@@ -1,10 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource, MatDialog  } from '@angular/material';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import {Conducteur} from '../../model/Conducteur';
 import {ConducteurService} from '../../services/conducteur.service';
 import {AddConducteurComponent} from './add-Conducteur/add-Conducteur.component';
+import {forkJoin} from 'rxjs';
+import { Chart } from 'chart.js';
 
 @Component({
   selector: 'app-posts',
@@ -18,6 +20,7 @@ export class ConducteurComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   selectedC: Conducteur;
+  @Input() conducteurs: any[];
 
   constructor(
     private router: Router,
@@ -29,6 +32,7 @@ export class ConducteurComponent implements OnInit {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.getConducteur();
+    //this.getConducteursData();
   }
 
   getConducteur() {
@@ -50,7 +54,7 @@ export class ConducteurComponent implements OnInit {
 
   handleDeleteButton(conducteur: Conducteur) {
     Swal.fire({
-      title: 'Are you sure you want to delete this voyage?',
+      title: 'Are you sure you want to delete this Conducteur?',
       showCancelButton: true,
       confirmButtonText: 'Yes',
       denyButtonText: 'No',
@@ -150,7 +154,12 @@ Copy
     </style>
       </head>
       <body>
-        <table>
+      <br>
+      <h2>Liste des Conducteurs</h2>
+      <br>
+      <br>
+<br>
+<table>
           <tr>
             <th>ID</th>
             <th>Nom</th>
@@ -177,6 +186,69 @@ Copy
     const printWindow = window.open('', '_blank');
     printWindow.document.open();
     printWindow.document.write(printContents);
+    printWindow.document.close();
+    printWindow.print();
+  }
+  getConducteursData() {
+    this.conducteurService.getAllConducteurs().subscribe(conducteurs => {
+      const conducteurIds = conducteurs.map(conducteur => conducteur.id);
+      const consommations$ = conducteurIds.map(id => this.conducteurService.getConducteurConsommation(id));
+      const vitesses$ = conducteurIds.map(id => this.conducteurService.getConducteurVitesse(id));
+
+      forkJoin(consommations$).subscribe(consommations => {
+        forkJoin(vitesses$).subscribe(vitesses => {
+          this.conducteurs = conducteurIds.map((id, index) => ({
+            id,
+            consommation: consommations[index],
+            vitesse: vitesses[index]
+          }));
+          this.initChart();
+        });
+      });
+    });
+  }
+
+  initChart() {
+    const labels = this.conducteurs.map(conducteur => `Conducteur ${conducteur.id}`);
+    const consommationData = this.conducteurs.map(conducteur => conducteur.consommation);
+    const vitesseData = this.conducteurs.map(conducteur => conducteur.vitesse);
+
+    new Chart('canvas', {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Consommation',
+            data: consommationData,
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+          },
+          {
+            label: 'Vitesse',
+            data: vitesseData,
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1
+          }
+        ]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  }
+  printChart() {
+    const chartCanvas = document.getElementById('myChart') as HTMLCanvasElement;
+    const printWindow = window.open('', '_blank');
+    printWindow.document.write('<html><head><title>Print Chart</title></head><body>');
+    printWindow.document.write('<img src="' + chartCanvas.toDataURL() + '">');
+    printWindow.document.write('</body></html>');
     printWindow.document.close();
     printWindow.print();
   }

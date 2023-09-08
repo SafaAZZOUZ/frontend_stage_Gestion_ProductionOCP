@@ -86,4 +86,81 @@ export class QualiteComponent implements OnInit {
       }
     });
   }
+  printTable() {
+    const printContents = `
+    <html>
+      <head>
+        <style>
+body {
+font-family: Arial, sans-serif;
+font-size: 14px;
+margin: 0;
+color: #333;
+}
+
+table {
+width: 100%;
+border-collapse: collapse;
+}
+
+th, td {
+padding: 12px;
+border: 1px solid #e0e0e0;
+text-align: left;
+}
+
+th {
+background-color: #f5f5f5;
+font-weight: bold;
+}
+
+td {
+background-color: #fff;
+}
+
+.example-button-row {
+margin-bottom: 20px;
+}
+
+button {
+margin-right: 10px;
+}
+
+dust
+Copy
+    </style>
+      </head>
+      <body>
+        <table>
+        <br>
+        <h2>Liste des qualité </h2>
+          <tr>
+            <th>ID</th>
+            <th>quantite Ex</th>
+            <th>commentaires</th>
+            <th>date d'evaluation</th>
+            <th>taux Defauts</th>
+             <th>taux Satisfaction</th>
+          </tr>
+          ${this.qualite.map(qualite => `
+            <tr>
+              <td>${qualite.id}</td>
+              <td>${qualite.quantiteEx}</td>
+              <td>${qualite.commentaires}</td>
+              <td>${qualite.dateEvaluation}</td>
+              <td>${qualite.tauxDefauts}</td>
+              <td>${qualite.tauxSatisfaction}</td>
+            </tr>
+          `).join('')}
+        </table>
+      </body>
+    </html>
+  `;
+
+    const printWindow = window.open('', '_blank');
+    printWindow.document.open();
+    printWindow.document.write(printContents);
+    printWindow.document.close();
+    printWindow.print();
+  }
 }

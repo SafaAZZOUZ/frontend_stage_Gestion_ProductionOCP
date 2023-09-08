@@ -1,50 +1,48 @@
-<h1>Edit Voyage</h1>
+<h1>Editer Conducteur</h1>
 <form *ngIf="updateFormGroup" [formGroup]="updateFormGroup" (ngSubmit)="onSubmit()">
   <div fxLayout="column" fxLayoutGap="20px">
     <mat-form-field>
-      <mat-label>nom</mat-label>
-      <input matInput formControlName="nom" placeholder="nom">
+      <mat-label>Nom</mat-label>
+      <input matInput formControlName="nom" placeholder="Nom">
       <mat-error *ngIf="updateFormGroup.get('nom').invalid && updateFormGroup.get('nom').touched">
-        nom is required
+        Le nom est requis
       </mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>prenom</mat-label>
-      <input matInput  formControlName="prenom" placeholder="prenom">
+      <mat-label>Prénom</mat-label>
+      <input matInput formControlName="prenom" placeholder="Prénom">
       <mat-error *ngIf="updateFormGroup.get('prenom').invalid && updateFormGroup.get('prenom').touched">
-        prenom is required
+        Le prénom est requis
       </mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>Date Em</mat-label>
-      <input matInput [matDatepicker]="datePicker2" formControlName="dateEm" placeholder="Date Em">
-      <mat-datepicker-toggle matSuffix [for]="datePicker2"></mat-datepicker-toggle>
-      <mat-datepicker #datePicker2></mat-datepicker>
+      <mat-label>Date d'embauche</mat-label>
+      <input matInput [matDatepicker]="datePicker1" formControlName="dateEm" placeholder="Date d'embauche">
+      <mat-datepicker-toggle matSuffix [for]="datePicker1"></mat-datepicker-toggle>
+      <mat-datepicker #datePicker1></mat-datepicker>
       <mat-error *ngIf="updateFormGroup.get('dateEm').invalid && updateFormGroup.get('dateEm').touched">
-        Date  is required
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>consommation Carburant</mat-label>
-      <input matInput [matDatepicker]="datePicker2" formControlName="consommationCarburant" placeholder="consommation Carburant">
-      <mat-datepicker-toggle matSuffix [for]="datePicker2"></mat-datepicker-toggle>
-      <mat-datepicker #datePicker2></mat-datepicker>
-      <mat-error *ngIf="updateFormGroup.get('consommationCarburant').invalid && updateFormGroup.get('consommationCarburant').touched">
-        consommation Carburant  is required
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>vitesseMoyenne</mat-label>
-      <input matInput [matDatepicker]="datePicker2" formControlName="vitesse Moyenne" placeholder="vitesse Moyenne">
-      <mat-datepicker-toggle matSuffix [for]="datePicker2"></mat-datepicker-toggle>
-      <mat-datepicker #datePicker2></mat-datepicker>
-      <mat-error *ngIf="updateFormGroup.get('vitesseMoyenne').invalid && updateFormGroup.get('vitesseMoyenne').touched">
-        vitesseMoyenne Parcourue is required
+        La date est requise
       </mat-error>
     </mat-form-field>
 
-    <button mat-raised-button color="primary" [disabled]="!updateFormGroup.valid">Save</button>
+    <mat-form-field>
+      <mat-label>Consommation de carburant</mat-label>
+      <input matInput formControlName="consommationCarburant" placeholder="Consommation de carburant">
+      <mat-error *ngIf="updateFormGroup.get('consommationCarburant').invalid && updateFormGroup.get('consommationCarburant').touched">
+        La consommation de carburant est requise
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Vitesse moyenne</mat-label>
+      <input matInput formControlName="vitesseMoyenne" placeholder="Vitesse moyenne">
+      <mat-error *ngIf="updateFormGroup.get('vitesseMoyenne').invalid && updateFormGroup.get('vitesseMoyenne').touched">
+        La vitesse moyenne parcourue est requise
+      </mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" [disabled]="!updateFormGroup.valid">Enregistrer</button>
   </div>
 </form>

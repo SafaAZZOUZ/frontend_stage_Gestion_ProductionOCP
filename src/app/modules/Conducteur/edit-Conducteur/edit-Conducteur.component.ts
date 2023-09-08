@@ -41,6 +41,8 @@ export class EditConducteurComponent implements OnInit {
               nom: data.nom,
               prenom: data.prenom,
               dateEm: data.dateEm,
+              consommationCarburant: data.consommationCarburant,
+              vitesseMoyenne: data.vitesseMoyenne
             });
           },
           error: err => {
